@@ -11,6 +11,7 @@ interface Movie {
   poster: string;
   imdb_url: string;
   reason?: string;
+  imdb_id: number;
 }
 
 interface TrendingMovie {
@@ -56,13 +57,13 @@ export default function Home() {
       <h2 className="text-2xl font-semibold mt-6 text-center">🔥 Trending Movies</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
         {movies.map((movie) => (
-          <div key={movie.id} className="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
+          <div key={movie.imdb_id} className="bg-gray-900 p-4 rounded-lg shadow-lg text-center">
             <a href={movie.imdb_url} target="_blank" rel="noopener noreferrer">
-              <div className="hover:scale-105 transition-transform duration-300">
+              <div className="hover:scale-105 transition-transform duration-300 ease-in-out">
                 <img 
-                  src={movie.poster} 
+                  src={movie.poster || "https://via.placeholder.com/140x207"} 
                   alt={movie.title} 
-                  className="transition-opacity duration-700 opacity-0 w-full max-w-[300px] mx-auto h-auto rounded-lg shadow-lg object-cover" 
+                  className="transition-opacity duration-700 opacity-0 w-full h-64 object-cover rounded-lg shadow-lg" 
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
                 />
               </div>
@@ -76,10 +77,10 @@ export default function Home() {
       {/* Trending Now Section */}
       <h2 className="text-2xl font-semibold mt-6 text-center">🔥 Trending Now</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
-        {trending.map((movie, index) => (
-          <div key={index} className="bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
+        {trending.map((movie) => (
+          <div key={movie.imdb_url} className="bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden">
             <a href={movie.imdb_url} target="_blank" rel="noopener noreferrer">
-              <div className="hover:scale-105 transition-transform duration-300">
+              <div className="hover:scale-105 transition-transform duration-300 ease-in-out">
                 <img 
                   src={movie.poster || "https://via.placeholder.com/140x207"} 
                   alt={movie.title} 
@@ -100,11 +101,11 @@ export default function Home() {
       <h2 className="text-2xl font-semibold mt-6 text-center">✨ Personalized for You</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
         {recommendations.map((movie) => (
-          <div key={movie.id} className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform">
+          <div key={movie.imdb_id} className="bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden">
             <a href={movie.imdb_url} target="_blank" rel="noopener noreferrer">
-              <div className="hover:scale-105 transition-transform duration-300">
+              <div className="hover:scale-105 transition-transform duration-300 ease-in-out">
                 <img 
-                  src={movie.poster} 
+                  src={movie.poster || "https://via.placeholder.com/140x207"} 
                   alt={movie.title} 
                   className="transition-opacity duration-700 opacity-0 w-full h-64 object-cover rounded-lg shadow-lg" 
                   onLoad={(e) => e.currentTarget.classList.add('opacity-100')}
